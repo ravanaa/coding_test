@@ -6,6 +6,7 @@ import com.koti.library.dao.entity.Book;
 import com.koti.library.dao.entity.Library;
 import com.koti.library.dto.BookDTO;
 import com.koti.library.dto.LibraryDTO;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ public class LibraryService implements ILibraryService {
   @Override
   public boolean addLibrary(LibraryDTO libraryDTO) {
     Library library = new Library();
+
     library.setLibraryName(libraryDTO.getLibraryName());
     library.setDescription(libraryDTO.getDescripiton());
     libraryRepository.save(library);
@@ -45,7 +47,8 @@ public class LibraryService implements ILibraryService {
 
   @Override
   public List<LibraryDTO> getAllLibraries() {
-    List<Library> libraries = libraryRepository.findAll();
+    List<Library> libraries = new ArrayList<>();
+        libraryRepository.findAll().forEach(libraries::add);
     List<LibraryDTO> libraryDTOList = libraries.stream().map(library -> {
       LibraryDTO dto = new LibraryDTO();
       dto.setLibraryId(library.getLibraryId());
@@ -63,8 +66,10 @@ public class LibraryService implements ILibraryService {
     book.setIsbn(bookDTO.getISBN());
     book.setBookTitle(bookDTO.getBookTitle());
     book.setLanguage(bookDTO.getLanguage());
+    book.setPublishYear(bookDTO.getPublishingYear());
     book.setAuthor(bookDTO.getAuthor());
     book.setLibrary(new Library(libraryID));
+
     booksRepository.save(book);
     return true;
   }

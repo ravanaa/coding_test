@@ -11,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "library")
@@ -22,11 +24,13 @@ import lombok.NoArgsConstructor;
 public class Library {
 
   public Library(Integer libraryId){
-    this.setLibraryId(libraryId);
+    this.libraryId=libraryId;
   }
   @Id
-  @Column(name = "library_id")
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Column(name = "library_id",updatable = false,nullable = false)
+  @GeneratedValue
+//  @Getter
+  @Setter(AccessLevel.NONE)
   private Integer libraryId;
 
   @Column(name="library_name",nullable = false)
