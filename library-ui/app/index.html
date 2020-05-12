@@ -12,18 +12,53 @@
             <H1>Jai Ganesh</H1>
         </p>
         <div class="container">
-            <table class="table">
+            
+            <table class="table table-striped table-bordered">
                 <tr>
-                    <th>Id</th>
+                    <th></th>
+                    <!--<th>Id</th>-->
                     <th>Name</th>
                     <th>Description</th>
+                    <th></th>
                 </tr>
                 <tr ng-repeat='library in libraries'>
-                    <td>{{library.libraryId}}</td>
-                    <td>{{library.libraryName}}</td>
-                    <td>{{library.descripiton}}</td>
+                    <td><input type="checkbox" ng-model="library.checked"></td>
+                  <!--  <td><input type="text" ng-disabled="!library.checked"  ng-model='library.libraryId'></td>-->
+                    <td><input type="text" ng-disabled="!library.checked" ng-model='library.libraryName'></td>
+                    <td><input type="text" ng-disabled="!library.checked" ng-model='library.descripiton'></td>
+                    <td><button ng-disabled="library.checked" ng-click='showBooks(library.libraryId)'>show Books</button></td>
                 </tr>
+                
             </table>
+            <div><button ng-click='addLibrary()'>Add</button>
+                <button ng-click='saveLibrary()'>save</button></div>
+                <br><br><br>
+            <div ng-if='visible'>
+                    <p>Books data</p>
+                    <table class="table table-striped table-bordered">
+                        <tr>
+                            <th></th>
+                            <th>ISBN</th>
+                            <th>Name</th>
+                            <th>Language</th>
+                            <th>PublishingYear</th>
+                            <th>Author</th>
+                        </tr>
+                        <tr ng-repeat='book in books'>
+                            <td><input type="checkbox" ng-model='book.checked'></td>
+                            <td><input type="text" ng-disabled='!book.checked' ng-model='book.isbn'</td>
+                            <td><input type="text" ng-disabled='!book.checked' ng-model='book.bookTitle'</td>
+                            <td><input type="text" ng-disabled='!book.checked' ng-model='book.language'</td>
+                            <td><input type="text" ng-disabled='!book.checked' ng-model='book.publishingYear'</td>
+                            <td><input type="text" ng-disabled='!book.checked' ng-model='book.author'</td>
+                        </tr>
+                    </table>
+                    <div>
+                       <button ng-click='addBook()'>Add</button>
+                       <button ng-click='saveBook()'>Save</button>
+                       <button>Delete</button>
+                    </div>
+            </div>    
         </div>
     </div>
 

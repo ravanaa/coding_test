@@ -33,9 +33,10 @@ public class LibraryController {
   }
 
   @PostMapping("/addLibrary")
-  public ResponseEntity<Response> addLibrary(@RequestBody LibraryDTO library){
+  public ResponseEntity<Response> addLibrary(@RequestBody String library){
+    System.out.println("library:"+library);
       Response response = new Response();
-      response.setStatus(libraryService.addLibrary(library));
+//      response.setStatus(libraryService.addLibrary(library));
       response.setDate(LocalDateTime.now());
       return new ResponseEntity<>(response, HttpStatus.OK);
   }
